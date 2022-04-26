@@ -4,8 +4,8 @@ User input validators
 import re
 from typing import Optional, Iterable, Set
 
-from .base import BaseValidator
-from .const import EMAIL_REGEXP
+from aiogram_forms.forms.base import BaseValidator
+from aiogram_forms.const import EMAIL_REGEXP
 
 
 class ChoicesValidator(BaseValidator):  # pylint: disable=too-few-public-methods

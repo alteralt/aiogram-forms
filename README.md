@@ -13,9 +13,11 @@ pip install aiogram-forms
 ```
 
 ## Usage
-Create form you need by subclassing `aiogram_forms.forms.Form`. Fields can be added with `aiogram_forms.fields.Field` 
+Create form you need by subclassing `aiogram_forms.forms.Form`. Fields can be added with `aiogram_forms.fields.Field`
+
 ```python
-from aiogram_forms import forms, fields
+from aiogram_forms import forms
+from aiogram_forms.forms import fields
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 

@@ -4,7 +4,8 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-from aiogram_forms import forms, fields
+from aiogram_forms import forms
+from aiogram_forms.forms import fields
 
 bot = Bot(token=os.getenv('BOT_TOKEN'))
 dp = Dispatcher(bot, storage=MemoryStorage())

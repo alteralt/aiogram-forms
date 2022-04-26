@@ -1,7 +1,7 @@
 import pytest
 from parameterized import parameterized
 
-from aiogram_forms.validators import ChoicesValidator, EmailValidator
+from aiogram_forms.forms.validators import ChoicesValidator, EmailValidator
 
 
 @parameterized.expand([
