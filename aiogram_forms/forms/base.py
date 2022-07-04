@@ -5,7 +5,9 @@ import abc
 from collections import OrderedDict
 from typing import Type, Mapping, Union, Callable, Optional
 
+from aiogram_forms.base import Entity
 from aiogram_forms.dispatcher import FormsDispatcher
+from aiogram_forms.enums import EntityType
 
 
 class BaseValidator(abc.ABC):  # pylint: disable=too-few-public-methods
@@ -49,11 +51,11 @@ class Field(abc.ABC):
         return self._label if isinstance(self._label, str) else self._label()
 
 
-class Form:
+class Form(Entity):
     """
     Base form class
     """
-    id: str
+    type: EntityType = EntityType.Form
 
     _fields: Mapping[str, 'Field']
 

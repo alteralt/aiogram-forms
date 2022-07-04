@@ -108,15 +108,22 @@ class MenuDispatcher:
         await dispatcher.bot.answer_callback_query(callback_query.id)
 
         item = cls._state_item_map[callback_query.data]
-        if isinstance(item._action, str):
-            await cls.show(cls._menus[item._action], message_id=callback_query.message.message_id)
+        if isinstance(item._link, str):
+            if item._link in cls._menus:
+                await cls.show(cls._menus[item._link], message_id=callback_query.message.message_id)
+            elif item._link in FormsDispatcher._forms:
+                await FormsDispatcher.start(FormsDispatcher._forms[item._link])
 
 
 class FormsDispatcher:
     _forms: MutableMapping[str, Type['Form']] = {}
+    _menus: MutableMapping[str, Type['Menu']] = {}
+
     _state: MutableMapping[str, Type['StatesGroup']] = {}
 
     _state_field_map: MutableMapping[str, 'Field'] = {}
+    _state_item_map: MutableMapping[str, 'MenuItem'] = {}
+
     _registry: Set[str] = set()
     _callbacks: MutableMapping[str, Optional[Coroutine]] = {}
 
@@ -130,6 +137,17 @@ class FormsDispatcher:
 
         for field, state in zip(form._fields.values(), cls._state[form.id].states_names):  # noqa
             cls._state_field_map[state] = field
+
+    @classmethod
+    def _register_menu(cls, menu: Type['Menu']) -> None:
+        if menu.id in cls._menus:
+            raise ValueError(f'Menu with name {menu.id} is already registered!')
+
+        cls._state[menu.id] = utils.build_states_group_type(menu)
+        cls._menus[menu.id] = menu
+
+        for item, state in zip(menu._items.values(), cls._state[menu.id].states_names):  # noqa
+            cls._state_item_map[state] = item
 
     @classmethod
     async def start(cls, form: Type['Form'], callback: Optional[Coroutine] = None) -> None:

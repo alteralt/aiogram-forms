@@ -8,13 +8,13 @@ from examples import get_translation as _, dp
 
 
 class MainMenu(menu.Menu, name='main'):
-    settings = menu.MenuItem('Settings')
-    about = menu.MenuItem('About', action='about')  # TODO: resolve imports
+    settings = menu.MenuItem('Settings', link='name-form')
+    about = menu.MenuItem('About', link='about')  # TODO: resolve imports
 
 
 class AboutMenu(menu.Menu, name='about'):
     version = menu.MenuItem('Version')
-    back = menu.MenuItem('Back', action='main')
+    back = menu.MenuItem('Back', link='main')
 
 
 class NameForm(forms.Form, name='name-form'):
